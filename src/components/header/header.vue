@@ -6,6 +6,7 @@
   blur:10px
   color rgb(255,255,255)
   .content-wrapper
+    position relative
     display flex
     padding: 24px 12px 18px 24px
     font-size 12px
@@ -54,6 +55,9 @@
             bg-image('special_1')
         .text
           line-height 12px
+          font-size 10px
+    .support-count
+      position absolute
 
 </style>
 
@@ -77,10 +81,11 @@
                     <span class="icon" :class="iconClassMap[seller.supports[0].type]"></span>
                     <span class="text">{{seller.supports[0].description}}</span>
                 </div>
-                <div class="counts">
-                    {{seller.supports.length+'个'}}
-                </div>
             </div>
+        </div>
+        <div class="support-counts" v-if="seller.supports">
+            <span class="count">{{seller.supports.length+'个'}}</span>
+            <i class="icon-keyboard_arrow_right"></i>
         </div>
     </div>
     <div class="bulletin-wrapper">
