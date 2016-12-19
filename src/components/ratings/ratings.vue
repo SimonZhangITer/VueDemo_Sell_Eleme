@@ -8,5 +8,5 @@
 export default {}
 </script>
 
-<style lang="stylus">
+<style lang="stylus" rel="stylesheet/stylus">
 </style>
