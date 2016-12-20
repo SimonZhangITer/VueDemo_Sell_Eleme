@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="star" :class="starType">
-    <span v-for="itemClass in itemClasses" :class="itemClass" class="star-item"></span>
+    <span v-for="itemClass in itemClasses" :class="itemClass" class="star-item" track-by="$index"></span>
   </div>
 </template>
 
@@ -50,44 +50,47 @@ export default {
       display inline-block
       background-repeat no-repeat
     &.star-48
-      width 20px
-      height 20px
-      margin-right 22px
-      background-size 100% 100%
-      &:last-child
-        margin-right 0
-      &.on
-        bg-image('star48_on')
-      &.half
-        bg-image('star48_half')
-      &.off
-        bg-image('star48_off')
+      .star-item
+        width 20px
+        height 20px
+        margin-right 22px
+        background-size 100% 100%
+        &:last-child
+          margin-right 0
+        &.on
+          bg-image('star48_on')
+        &.half
+          bg-image('star48_half')
+        &.off
+          bg-image('star48_off')
     &.star-36
-      width 15px
-      height 15px
-      margin-right 6px
-      background-size 100% 100%
-      &:last-child
-        margin-right 0
-      &.on
-        bg-image('star36_on')
-      &.half
-        bg-image('star36_half')
-      &.off
-        bg-image('star36_off')
+      .star-item
+        width 15px
+        height 15px
+        margin-right 6px
+        background-size 100% 100%
+        &:last-child
+          margin-right 0
+        &.on
+          bg-image('star36_on')
+        &.half
+          bg-image('star36_half')
+        &.off
+          bg-image('star36_off')
     &.star-24
-      width 10px
-      height 10px
-      margin-right 3px
-      background-size 100% 100%
-      &:last-child
-        margin-right 0
-      &.on
-        bg-image('star24_on')
-      &.half
-        bg-image('star24_half')
-      &.off
-        bg-image('star24_off')
+      .star-item
+        width 10px
+        height 10px
+        margin-right 3px
+        background-size 100% 100%
+        &:last-child
+          margin-right 0
+        &.on
+          bg-image('star24_on')
+        &.half
+          bg-image('star24_half')
+        &.off
+          bg-image('star24_off')
 
 
 </style>
