@@ -3,7 +3,7 @@
 <div class="header">
     <div class="content-wrapper">
         <div class="avatar">
-            <img :src="seller.avatar" width="64" height="64" />
+          <img :src="seller.avatar" width="64" height="64" />
         </div>
         <div class="content">
             <div class="title">
@@ -24,7 +24,7 @@
             <span class="count">{{seller.supports.length+'个'}}</span>
             <i class="icon-keyboard_arrow_right"></i>
         </div>
-    </div>
+  </div>
     <div class="bulletin-wrapper" @click="showDetails()">
       <span class="bulletin-title"></span>
       <span class="bulletin-text">{{seller.bulletin}}</span>
@@ -87,7 +87,7 @@ export default {
   },
   data() {
     return {
-      detailShow: true
+      detailShow: false
     }
   },
   methods: {
@@ -99,6 +99,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
@@ -111,12 +112,6 @@ export default {
   color #fff
   blur:10px
   overflow hidden
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s
-  }
-  .fade-enter, .fade-leave-active {
-    opacity: 0
-  }
   .content-wrapper
     position relative
     display flex
@@ -228,6 +223,7 @@ export default {
     width 100%
     height 100%
     background rgba(7,17,27,0.8)
+    backdrop-filter blur(10px)
     .detail-wrapper
       min-height 100%
       width 100%
@@ -302,4 +298,10 @@ export default {
       clear both
       font-size 32px
       color rgba(255,255,255,0.5)
+    &.fade-enter-active, &.fade-leave-active {
+        transition: opacity .5s
+    }
+    &.fade-enter, &.fade-leave-active {
+        opacity: 0
+    }
 </style>
