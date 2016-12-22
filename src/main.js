@@ -5,9 +5,12 @@ import VueResource from 'vue-resource'
 import goods from 'components/goods/goods'
 import ratings from 'components/ratings/ratings'
 import seller from 'components/seller/seller'
+import vueTap from 'v-tap'
+import fastclick from 'fastclick'
 
+Vue.use(vueTap);
 Vue.use(VueRouer)
-Vue.use(VueResource);
+Vue.use(VueResource)
 
 const router = new VueRouer({
   routes: [{

@@ -1,7 +1,7 @@
 <template lang="html">
 
   <div class="goods">
-    <div class="menu-wrapper">
+    <div class="menu-wrapper" ref="menuWrapper">
       <ul>
         <li v-for="item in goods">
           <span class="text">
@@ -15,14 +15,14 @@
         </li>
       </ul>
     </div>
-    <div class="foods-wrapper">
+    <div class="foods-wrapper" id="wrapper" ref="foodsWrapper">
       <ul>
         <li v-for="item in goods" class="food-list">
           <h1>{{item.name}}</h1>
           <ul>
             <li v-for="food in item.foods" class="food-item">
               <div class="icon">
-                <img width="57" height="57" :src="food.icon" />
+                <img width="57" height="57" :src="food.icon"/>
               </div>
               <div class="content">
                 <h2>{{food.name}}</h2>
@@ -32,8 +32,8 @@
                   <span class="rating">好评率{{food.rating}}%</span>
                 </div>
                 <div class="price">
-                  <span><span class="unit">￥</span>{{food.price}}</span>
-                  <span v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                  <span class="newPrice"><span class="unit">￥</span>{{food.price}}</span>
+                  <span v-show="!food.oldPrice" class="oldPrice">￥{{food.oldPrice||28}}</span>
                 </div>
               </div>
             </li>
@@ -47,6 +47,8 @@
 
 <script>
 import iconMap from 'components/iconMap/iconMap'
+import BScroll from 'better-scroll'
+import fastclick from 'fastclick'
 
 const ERR_OK = 0
 
@@ -59,12 +61,25 @@ export default {
       res = res.body;
       if (res.errno === ERR_OK) {
         this.goods = res.data;
+        this.$nextTick(() => {
+          this._initScroll();
+        })
       }
     });
+    // 禁止微信默认拖拽效果
+    // document.body.addEventListener('touchstart', function(ev) {
+    //   ev.preventDefault();
+    // });
   },
   data() {
     return {
       goods: []
+    }
+  },
+  methods: {
+    _initScroll() {
+      this.menuWrapper = new BScroll(this.$refs.menuWrapper, {});
+      this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {});
     }
   },
   components: {
@@ -127,27 +142,36 @@ export default {
           border-bottom none
           margin-bottom 0
         .content
+          flex 1
           padding-left 10px
           h2
-            padding-top 2px
+            margin 2px 0 8px 0
             font-size 14px
             line-height 14px
+            height 14px
             font-weight 700
             color rgb(7,17,27)
-            padding-bottom 8px
-          .description,.sell-info
+          .sell-info,.description
             font-size 10px
             color rgb(147,153,159)
             line-height 10px
-            padding-bottom 8px
-            .rating
-              padding-left 12px
+            .sellCount
+              margin-right 4px
+          .description
+            font-size 10px
+            margin-bottom 8px
           .price
-            font-size 16px
-            color rgb(240,20,20)
+            font-size 10px
             font-weight 700
             line-height 24px
-            .unit
-              font-size 10px
-              font-weight normal
+            .newPrice
+              font-size 14px
+              color rgb(240,20,20)
+              .unit
+                font-size 10px
+                font-weight normal
+            .oldPrice
+              text-decoration line-through
+              color rgb(147,153,159)
+              padding-left 4px
 </style>

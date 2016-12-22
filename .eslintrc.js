@@ -24,6 +24,8 @@ module.exports = {
       maxBOF: 2
     }],
     'space-before-function-paren':0,
-    'semi':0
+    'semi':0,
+    'no-new':0,
+    'no-unused-vars':0
   }
 }
