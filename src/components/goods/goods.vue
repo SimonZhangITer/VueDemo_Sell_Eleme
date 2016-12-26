@@ -3,15 +3,12 @@
   <div class="goods">
     <div class="menu-wrapper" ref="menuWrapper">
       <ul>
-        <li v-for="(item,index) in goods" @click="menuClick(index)">
+        <li v-for="(item,index) in goods" @click="menuClick(index,$event)" :class="index==menuCurrentIndex?'menu-item-selected':'menu-item'">
           <span class="text">
             <!-- <span class="icon" v-show="item.type>0" :class="iconClassMap[item.type]"></span> -->
             <iconMap v-show="item.type>0" :iconType="item.type"></iconMap>
             {{item.name}}
           </span>
-          <div class="line">
-
-          </div>
         </li>
       </ul>
     </div>
@@ -41,6 +38,7 @@
         </li>
       </ul>
     </div>
+    <shopCart></shopCart>
   </div>
 
 </template>
@@ -48,7 +46,7 @@
 <script>
 import iconMap from 'components/iconMap/iconMap'
 import BScroll from 'better-scroll'
-import fastclick from 'fastclick'
+import shopCart from 'components/shopCart/shopCart'
 
 const ERR_OK = 0
 
@@ -67,10 +65,6 @@ export default {
         })
       }
     });
-    // 禁止微信默认拖拽效果
-    // document.body.addEventListener('touchstart', function(ev) {
-    //   ev.preventDefault();
-    // });
   },
   data() {
     return {
@@ -84,7 +78,7 @@ export default {
       for (let i = 0, l = this.listHeight.length; i < l; i++) {
         let topHeight = this.listHeight[i]
         let bottomHeight = this.listHeight[i + 1]
-        if (!bottomHeight || (this.foodsScrollY > topHeight && this.foodsScrollY < bottomHeight)) {
+        if (!bottomHeight || (this.foodsScrollY >= topHeight && this.foodsScrollY < bottomHeight)) {
           return i
         }
       }
@@ -115,17 +109,20 @@ export default {
         this.listHeight.push(height)
       }
     },
-    test(e) {
-      alert()(1)
+    test() {
+      console.log(this.foodsScroll.moved);
+      console.log(1)
     },
-    menuClick(index) {
-      console.log(this.listHeight[index]);
-      console.log(this.foodsScroll);
-      this.foodsScroll.scrollTo(0, -this.listHeight[index])
+    menuClick(index, event) {
+      if (!event._constructed) {
+        return
+      }
+      this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
     }
   },
   components: {
-    iconMap
+    iconMap,
+    shopCart
   }
 }
 
@@ -145,13 +142,26 @@ export default {
       width 80px
       background #f3f5f7
       margin-top: 2px;
-      li
+      .menu-item-selected
+        background white
+        font-weight 700
+        margin-top -1px
+      .menu-item,.menu-item-selected
+        position relative
         display table
         height 54px
         line-height 14px
         width 56px
-        margin 0 12px
-        border-bottom 1px solid rgba(7,17,27,0.1)
+        padding 0 12px
+        &:last-child:after
+          content none
+      .menu-item:after
+          position: absolute
+          content: ''
+          left: 12px
+          width: 56px
+          bottom: 0
+          border-bottom: 1px solid rgba(7,17,27,0.1)
         .text
           display table-cell
           vertical-align middle
