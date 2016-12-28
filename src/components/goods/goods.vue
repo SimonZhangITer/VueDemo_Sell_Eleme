@@ -5,7 +5,6 @@
       <ul>
         <li v-for="(item,index) in goods" @click="menuClick(index,$event)" :class="index==menuCurrentIndex?'menu-item-selected':'menu-item'">
           <span class="text">
-            <!-- <span class="icon" v-show="item.type>0" :class="iconClassMap[item.type]"></span> -->
             <iconMap v-show="item.type>0" :iconType="item.type"></iconMap>
             {{item.name}}
           </span>
@@ -17,7 +16,7 @@
         <li v-for="item in goods" class="food-list food-list-hook">
           <h1>{{item.name}}</h1>
           <ul>
-            <li v-for="food in item.foods" class="food-item" @click.prevent="test()">
+            <li v-for="food in item.foods" class="food-item" >
               <div class="icon">
                 <img width="57" height="57" :src="food.icon"/>
               </div>
@@ -32,13 +31,16 @@
                   <span class="newPrice"><span class="unit">￥</span>{{food.price}}</span>
                   <span v-show="food.oldPrice" class="oldPrice">￥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food="food"></cartcontrol>
+                </div>
               </div>
             </li>
           </ul>
         </li>
       </ul>
     </div>
-    <shopCart></shopCart>
+    <shopCart :deliveryPrice="seller.deliveryPrice" :minPrice = "seller.minPrice" :selectFoods="selectFoods"></shopCart>
   </div>
 
 </template>
@@ -47,6 +49,7 @@
 import iconMap from 'components/iconMap/iconMap'
 import BScroll from 'better-scroll'
 import shopCart from 'components/shopCart/shopCart'
+import cartcontrol from 'components/cartcontrol/cartcontrol'
 
 const ERR_OK = 0
 
@@ -70,7 +73,8 @@ export default {
     return {
       goods: [],
       listHeight: [],
-      foodsScrollY: 0
+      foodsScrollY: 0,
+      selectFoods: []
     }
   },
   computed: {
@@ -109,9 +113,12 @@ export default {
         this.listHeight.push(height)
       }
     },
-    test() {
-      console.log(this.foodsScroll.moved);
-      console.log(1)
+    foodClick(food) {
+      if (!food.count) {
+        food.count = 0;
+      }
+      food.count++;
+      this.selectFoods.push(food);
     },
     menuClick(index, event) {
       if (!event._constructed) {
@@ -122,7 +129,8 @@ export default {
   },
   components: {
     iconMap,
-    shopCart
+    shopCart,
+    cartcontrol
   }
 }
 
@@ -184,6 +192,7 @@ export default {
           background #f3f5f7
           border-left 2px solid #d9dde1
       .food-item
+        position relative
         display flex
         margin: 0 18px;
         padding: 18px 0;
@@ -211,7 +220,7 @@ export default {
           .description
             font-size 10px
             margin-bottom 8px
-            line-height: 12px;
+            line-height: 12px
           .price
             font-size 10px
             font-weight 700
@@ -226,4 +235,8 @@ export default {
               text-decoration line-through
               color rgb(147,153,159)
               padding-left 4px
+          .cartcontrol-wrapper
+            position: absolute
+            right: 0
+            bottom 12px
 </style>
