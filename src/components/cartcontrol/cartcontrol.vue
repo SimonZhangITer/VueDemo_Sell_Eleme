@@ -1,9 +1,9 @@
 <template lang="html">
 
   <div class="cartcontrol">
-    <transition name="fadeRotate">
+    <transition name="rotate">
       <div class="cart-decrease" v-show="food.count" @click="decreaseCart()">
-        <i class="inner icon-remove_circle_outline"></i>
+          <span class="icon-remove_circle_outline"></span>
       </div>
     </transition>
     <div class="cart-count" v-show="food.count">
@@ -46,25 +46,23 @@ export default {
 <style lang="stylus">
 
 .cartcontrol
-  .fadeRotate-enter-active, .fadeRotate-leave-active {
+  .fade-enter-active, .fade-leave-active
     transition: all .4s linear
     transform translate3d(0,0,0)
-    .inner
+    .icon-remove_circle_outline
       display inline-block
-      vertical-align top
-      font-size 24px
-      color rgb(0,160,220)
-      line-height 24px
       transition all 0.4s linear
-      transform rotate(0)
-  }
-  .fadeRotate-enter, .fadeRotate-leave-active {
-    display inline-block
+      transform rotate(0deg)
+  .fade-enter, .fade-leave-active
     opacity: 0
     transform translate3d(24px,0,0)
-    .inner
+    .icon-remove_circle_outline
+      transition all 0.4s linear
+      display inline-block
       transform rotate(180deg)
-  }
+  .icon-remove_circle_outline
+    display inline-block
+    transition all 0.4s linear
   .cart-count
     display inline-block
     vertical-align top
