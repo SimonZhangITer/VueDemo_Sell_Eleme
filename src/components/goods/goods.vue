@@ -50,7 +50,9 @@ import iconMap from 'components/iconMap/iconMap'
 import BScroll from 'better-scroll'
 import shopCart from 'components/shopCart/shopCart'
 import cartcontrol from 'components/cartcontrol/cartcontrol'
+import Vue from 'vue'
 
+const eventHub = new Vue()
 const ERR_OK = 0
 
 export default {
@@ -68,6 +70,8 @@ export default {
         })
       }
     });
+
+    eventHub.$on('cartAadd', this.test)
   },
   data() {
     return {
@@ -100,6 +104,9 @@ export default {
     }
   },
   methods: {
+    test(e) {
+      console.log(e);
+    },
     _initScroll() {
       this.menuWrapper = new BScroll(this.$refs.menuWrapper, {
         click: true
