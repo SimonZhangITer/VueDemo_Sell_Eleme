@@ -22,11 +22,11 @@
         {{payDesc}}
       </div>
     </div>
-    <div class="ball-container">
+    <!-- <div class="ball-container">
       <div class="" v-for="ball in balls" v-show="ball.show" class="ball">
 
       </div>
-    </div>
+    </div> -->
   </div>
 
 </template>
