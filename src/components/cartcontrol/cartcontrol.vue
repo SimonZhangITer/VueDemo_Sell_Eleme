@@ -1,12 +1,12 @@
 <template lang="html">
 
   <div class="cartcontrol">
-    <transition name="rotate">
-      <div class="cart-decrease" v-show="food.count" @click="decreaseCart()">
-          <span class="icon-remove_circle_outline"></span>
+    <transition name="fadeRotate">
+      <div class="cart-decrease" v-show="food.count>0" @click="decreaseCart()">
+          <span class="icon-remove_circle_outline inner"></span>
       </div>
     </transition>
-    <div class="cart-count" v-show="food.count">
+    <div class="cart-count" v-show="food.count>0">
       {{food.count}}
     </div>
     <div class="cart-add" @click="addCart()">
@@ -23,7 +23,7 @@ export default {
     food: Object
   },
   methods: {
-    addCart() {
+    addCart(event) {
       if (!event._constructed) {
         return
       }
@@ -31,8 +31,9 @@ export default {
         Vue.set(this.food, 'count', 0)
       }
       this.food.count++
+        // this.$dispach('')
     },
-    decreaseCart() {
+    decreaseCart(event) {
       if (!event._constructed) {
         return
       }
@@ -46,23 +47,25 @@ export default {
 <style lang="stylus">
 
 .cartcontrol
-  .fade-enter-active, .fade-leave-active
-    transition: all .4s linear
-    transform translate3d(0,0,0)
-    .icon-remove_circle_outline
-      display inline-block
-      transition all 0.4s linear
-      transform rotate(0deg)
-  .fade-enter, .fade-leave-active
-    opacity: 0
-    transform translate3d(24px,0,0)
-    .icon-remove_circle_outline
-      transition all 0.4s linear
-      display inline-block
-      transform rotate(180deg)
-  .icon-remove_circle_outline
+  .cart-decrease
     display inline-block
-    transition all 0.4s linear
+    padding 6px
+    transition: all .4s linear
+    .inner
+      display inline-block
+      line-height 24px
+      font-size 24px
+      color rgb(0,160,220)
+      transition all 0.4s linear
+    &.fadeRotate-enter-active, &.fadeRotate-leave-active
+      transform translate3d(0,0,0)
+      .inner
+        transform rotate(0)
+    &.fadeRotate-enter, &.fadeRotate-leave-active
+      opacity: 0
+      transform translate3d(24px,0,0)
+      .inner
+        transform rotate(180deg)
   .cart-count
     display inline-block
     vertical-align top
@@ -71,7 +74,7 @@ export default {
     line-height 24px
     text-align center
     padding 6px 0
-  .cart-decrease,.cart-add
+  .cart-add
     display inline-block
     vertical-align top
     font-size 24px

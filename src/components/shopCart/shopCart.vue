@@ -22,6 +22,11 @@
         {{payDesc}}
       </div>
     </div>
+    <div class="ball-container">
+      <div class="" v-for="ball in balls" v-show="ball.show" class="ball">
+
+      </div>
+    </div>
   </div>
 
 </template>
@@ -46,7 +51,9 @@ export default {
     totalPrice() {
       let total = 0
       this.selectFoods.forEach((food) => {
-        total += food.price
+        if (food.count) {
+          total += food.price * food.count
+        }
       })
       return total
     },
