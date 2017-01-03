@@ -17,9 +17,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
-const eventHub = new Vue()
 export default {
   props: {
     food: Object
@@ -33,7 +30,6 @@ export default {
         Vue.set(this.food, 'count', 0)
       }
       this.food.count++;
-      eventHub.$emit('cartAadd', event)
     },
     decreaseCart() {
       if (!event._constructed) {

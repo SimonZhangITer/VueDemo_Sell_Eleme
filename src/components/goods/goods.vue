@@ -50,9 +50,8 @@ import iconMap from 'components/iconMap/iconMap'
 import BScroll from 'better-scroll'
 import shopCart from 'components/shopCart/shopCart'
 import cartcontrol from 'components/cartcontrol/cartcontrol'
-import Vue from 'vue'
+import axios from 'axios'
 
-const eventHub = new Vue()
 const ERR_OK = 0
 
 export default {
@@ -60,8 +59,8 @@ export default {
     seller: Object
   },
   created() {
-    this.$http.get('/api/goods').then((res) => {
-      res = res.body;
+    axios.get('/api/goods').then((res) => {
+      res = res.data;
       if (res.errno === ERR_OK) {
         this.goods = res.data;
         this.$nextTick(() => {
@@ -70,8 +69,6 @@ export default {
         })
       }
     });
-
-    eventHub.$on('cartAadd', this.test)
   },
   data() {
     return {
@@ -104,9 +101,6 @@ export default {
     }
   },
   methods: {
-    test(e) {
-      console.log(e);
-    },
     _initScroll() {
       this.menuWrapper = new BScroll(this.$refs.menuWrapper, {
         click: true

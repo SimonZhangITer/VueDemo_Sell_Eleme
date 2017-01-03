@@ -39,6 +39,7 @@
 
 <script>
 import header from 'components/header/header'
+import axios from 'axios'
 
 const ERR_OK = 0
 
@@ -49,8 +50,8 @@ export default {
     }
   },
   created() {
-    this.$http.get('/api/seller').then((res) => {
-      res = res.body
+    axios.get('/api/seller').then((res) => {
+      res = res.data
       if (res.errno === ERR_OK) {
         this.seller = res.data
       }
