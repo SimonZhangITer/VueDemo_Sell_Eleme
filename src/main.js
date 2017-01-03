@@ -24,7 +24,6 @@ const store = new Vuex.Store({
     }
   }
 })
-
 const router = new VueRouer({
   routes: [{
     path: '/goods',
