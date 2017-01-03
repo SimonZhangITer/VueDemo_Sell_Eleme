@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   props: {
     food: Object
@@ -29,7 +31,10 @@ export default {
       if (!this.food.count) {
         Vue.set(this.food, 'count', 0)
       }
+
       this.food.count++;
+      // 存储当前点击的event事件，在购物车中会用到
+      this.$store.cartEvent = event
     },
     decreaseCart() {
       if (!event._constructed) {

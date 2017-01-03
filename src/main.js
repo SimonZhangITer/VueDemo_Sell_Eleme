@@ -14,6 +14,17 @@ Vue.use(VueRouer)
 Vue.use(VueResource)
 Vue.use(Vuex)
 
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment(state) {
+      state.count++
+    }
+  }
+})
+
 const router = new VueRouer({
   routes: [{
     path: '/goods',
@@ -30,6 +41,7 @@ const router = new VueRouer({
 
 new Vue({
   router,
+  store,
   template: '<App>',
   components: {
     App

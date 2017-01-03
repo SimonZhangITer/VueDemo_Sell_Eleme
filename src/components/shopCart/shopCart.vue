@@ -3,7 +3,7 @@
   <div class="shopCart">
     <div class="content">
       <div class="content-left">
-        <div class="logo-wrapper">
+        <div class="logo-wrapper" @click="testStore()">
           <div class="badge" v-show="totalCount">
             {{totalCount}}
           </div>
@@ -79,6 +79,11 @@ export default {
       } else {
         return '去结算'
       }
+    }
+  },
+  methods: {
+    testStore() {
+      console.log(this.$store.cartEvent);
     }
   }
 }
