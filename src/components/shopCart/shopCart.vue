@@ -22,11 +22,13 @@
         {{payDesc}}
       </div>
     </div>
-    <!-- <div class="ball-container">
-      <div class="" v-for="ball in balls" v-show="ball.show" class="ball">
-
-      </div>
-    </div> -->
+    <div class="ball-container">
+      <transition name"drop">
+        <div v-for="ball in balls" v-show="ball.show" class="ball">
+          <div class="inner inner-hook"></div>
+        </div>
+      </transition>
+    </div>
   </div>
 
 </template>
@@ -46,6 +48,25 @@ export default {
       type: Number,
       default: 0
     }
+  },
+  data() {
+    return {
+      balls: [{
+        show: false
+      }, {
+        show: false
+      }, {
+        show: false
+      }, {
+        show: false
+      }, {
+        show: false
+      }],
+      dropBalls: []
+    }
+  },
+  created() {
+    this.$root.eventHub.$on('cart.add', this.drop)
   },
   computed: {
     totalPrice() {
@@ -82,8 +103,16 @@ export default {
     }
   },
   methods: {
-    testStore() {
-      console.log(this.$store.cartEvent);
+    drop(el) {
+      for (let i = 0, l = this.balls.length; i < l; i++) {
+        let ball = this.balls[i]
+        if (!ball.show) {
+          ball.show = true
+          ball.el = el
+          this.dropBalls.push(ball)
+          return
+        }
+      }
     }
   }
 }
@@ -176,4 +205,18 @@ export default {
       &.enough
         background #00b43c
         color white
+  .ball-container
+    .ball
+      position fixed
+      left 32px
+      bottom 22px
+      z-index 200
+      &.drop-enter
+        transition all 0.4s
+        .inner
+          width 16px
+          height 16px
+          border-radius 50%
+          background rgb(0,160,220)
+          transition all 0.4s
 </style>

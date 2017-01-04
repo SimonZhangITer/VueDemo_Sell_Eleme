@@ -18,6 +18,8 @@ const store = new Vuex.Store({
   state: {
     count: 0
   },
+  // 添加的商品元素
+  addCartEl: {},
   mutations: {
     increment(state) {
       state.count++
@@ -44,6 +46,9 @@ new Vue({
   template: '<App>',
   components: {
     App
+  },
+  data: {
+    eventHub: new Vue()
   }
 }).$mount('#app')
 

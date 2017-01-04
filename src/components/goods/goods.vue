@@ -51,9 +51,10 @@ import BScroll from 'better-scroll'
 import shopCart from 'components/shopCart/shopCart'
 import cartcontrol from 'components/cartcontrol/cartcontrol'
 import axios from 'axios'
+import Vue from 'vue'
 
 const ERR_OK = 0
-
+const eventHub = new Vue()
 export default {
   props: {
     seller: Object
@@ -129,6 +130,11 @@ export default {
         return
       }
       this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
+    }
+  },
+  events: {
+    'cart.add' (e) {
+      console.log(e);
     }
   },
   components: {

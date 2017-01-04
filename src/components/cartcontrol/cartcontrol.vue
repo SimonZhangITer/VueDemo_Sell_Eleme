@@ -25,19 +25,20 @@ export default {
   },
   methods: {
     addCart() {
+      this.count++;
       if (!event._constructed) {
         return
       }
       if (!this.food.count) {
         Vue.set(this.food, 'count', 0)
       }
-
       this.food.count++;
-      // 存储当前点击的event事件，在购物车中会用到
-      this.$store.cartEvent = event
+      // 存储当前点击的元素，在购物车中会用到
+      this.$store.addCartEl = event.target
+      this.$root.eventHub.$emit('cart.add', event.target)
     },
     decreaseCart() {
-      if (!event._constructed) {
+      if (!event._constructed || !this.food.count) {
         return
       }
       this.food.count--;
@@ -55,7 +56,6 @@ export default {
     padding 6px
     transition: all .4s linear
     .inner
-      display inline-block
       line-height 24px
       font-size 24px
       color rgb(0,160,220)
@@ -63,6 +63,7 @@ export default {
     &.fadeRotate-enter-active, &.fadeRotate-leave-active
       transform translate3d(0,0,0)
       .inner
+        display inline-block
         transform rotate(0)
     &.fadeRotate-enter, &.fadeRotate-leave-active
       opacity: 0
