@@ -41,6 +41,7 @@
       </ul>
     </div>
     <shopCart :deliveryPrice="seller.deliveryPrice" :minPrice = "seller.minPrice" :selectFoods="selectFoods"></shopCart>
+
   </div>
 
 </template>
@@ -130,11 +131,6 @@ export default {
         return
       }
       this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
-    }
-  },
-  events: {
-    'cart.add' (e) {
-      console.log(e);
     }
   },
   components: {
@@ -249,4 +245,5 @@ export default {
             position: absolute
             right: 0
             bottom 12px
+
 </style>

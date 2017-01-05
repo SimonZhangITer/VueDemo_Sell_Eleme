@@ -9,7 +9,7 @@
     <div class="cart-count" v-show="food.count>0">
       {{food.count}}
     </div>
-    <div class="cart-add" @click="addCart()">
+    <div class="cart-add" @click="addCart($event)">
       <i class="icon-add_circle"></i>
     </div>
   </div>
@@ -24,7 +24,7 @@ export default {
     food: Object
   },
   methods: {
-    addCart() {
+    addCart(event) {
       this.count++;
       if (!event._constructed) {
         return

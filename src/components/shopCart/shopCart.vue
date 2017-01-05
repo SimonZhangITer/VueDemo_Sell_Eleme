@@ -1,8 +1,9 @@
 <template lang="html">
+  <div class="">
   <div class="shopCart">
     <div class="content">
-      <div class="content-left">
-        <div class="logo-wrapper" @click="testStore()">
+      <div class="content-left" @click="listToggle">
+        <div class="logo-wrapper">
           <div class="badge" v-show="totalCount">
             {{totalCount}}
           </div>
@@ -30,10 +31,40 @@
         </div>
       </transition>
     </div>
+    <transition name="transHeight">
+      <div class="shopcart-list" v-show="listShow&&totalPrice">
+        <div class="list-header">
+          <h1 class="title">购物车</h1>
+          <span class="empty">清空</span>
+        </div>
+        <div class="list-content" ref="foodlist">
+          <ul>
+            <li class="food" v-for="food in selectFoods">
+              <span class="name">{{food.name}}</span>
+              <div class="price">
+                <span>￥{{food.price * food.count}}</span>
+              </div>
+              <div class="cartcontrol-wrapper">
+                <cartcontrol :food="food"></cartcontrol>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </transition>
+  </div>
+  <transition name="fade-backdrop">
+    <div class="backdrop" v-show="showBackdrop"></div>
+  </transition>
   </div>
 </template>
 
 <script>
+import cartcontrol from 'components/cartcontrol/cartcontrol'
+import backdrop from 'components/backdrop/backdrop'
+import BScroll from 'better-scroll'
+
+
 export default {
   props: {
     selectFoods: {
@@ -62,11 +93,16 @@ export default {
       }, {
         show: false
       }],
-      dropBalls: []
+      dropBalls: [],
+      listShow: false,
+      showBackdrop: false
     }
   },
   created() {
     this.$root.eventHub.$on('cart.add', this.drop)
+    this.$nextTick(() => {
+      this._initScroll()
+    })
   },
   computed: {
     totalPrice() {
@@ -114,6 +150,17 @@ export default {
         }
       }
     },
+    _initScroll() {
+      this.foolistWrapper = new BScroll(this.$refs.foodlist, {
+        click: true
+      });
+    },
+    listToggle() {
+      if (!this.selectFoods.length) {
+        return
+      }
+      this.listShow = !this.listShow
+    },
     beforeEnter(el) {
       let count = this.balls.length
       while (count--) {
@@ -148,6 +195,19 @@ export default {
         el.style.display = 'none'
       }
     }
+  },
+  watch: {
+    listShow() {
+      if (this.listShow) {
+        this.showBackdrop = true
+        return
+      }
+      this.showBackdrop = false
+    }
+  },
+  components: {
+    cartcontrol,
+    backdrop
   }
 }
 
@@ -254,4 +314,69 @@ export default {
           border-radius 50%
           background rgb(0,160,220)
           transition all 0.4s linear
+  .shopcart-list
+    position absolute
+    bottom 48px
+    left 0
+    right 0
+    max-height 282px
+    background white
+    z-index -1
+    &.transHeight-enter-active,&.transHeight-leave-active
+      transition all 0.5s
+      /*bottom 48px*/
+    &.transHeight-enter,&.transHeight-leave-active
+      bottom -280px
+    .list-header
+      height 40px
+      line-height 40px
+      background #f3f5f7
+      border-bottom 1px solid rgba(7,17,27,0.1)
+      .title
+        display inline-block
+        font-size 14px
+        font-weight 200
+        color rgb(7,17,27)
+        padding-left 18px
+      .empty
+        position absolute
+        right 8px
+        font-size 12px
+        color rgb(0,160,220)
+        padding 0 10px
+    .list-content
+      .food
+        position relative
+        display flex
+        height 48px
+        margin 0 18px
+        border-bottom 1px solid rgba(7,17,27,0.1)
+        .name
+          flex 1
+          font-size 14px
+          color rgb(7,17,27)
+          line-height 48px
+          font-weight 700
+        .price
+          font-size 14px
+          font-weight 700
+          color rgb(240,20,20)
+          padding 0 12px 0 18px
+          line-height 48px
+        .cartcontrol-wrapper
+          font-size 14px
+          margin-top 6px
+.backdrop
+  position fixed
+  top 0
+  bottom 0
+  left 0
+  right 0
+  background rgba(7,17,27,0.6)
+  backdrop-filter blur(10px)
+  z-index 40
+  &.fade-backdrop-enter-active,&.fade-backdrop-leave-active
+    transition opacity 0.5s
+  &.fade-backdrop-enter,&.fade-backdrop-leave-active
+    opacity 0
 </style>
