@@ -32,10 +32,10 @@
       </transition>
     </div>
     <transition name="transHeight">
-      <div class="shopcart-list" v-show="listShow&&totalPrice">
+      <div class="shopcart-list" v-show="listShow">
         <div class="list-header">
           <h1 class="title">购物车</h1>
-          <span class="empty">清空</span>
+          <span class="empty" @click="setEmpty()">清空</span>
         </div>
         <div class="list-content" ref="foodlist">
           <ul>
@@ -54,7 +54,7 @@
     </transition>
   </div>
   <transition name="fade-backdrop">
-    <div class="backdrop" v-show="showBackdrop"></div>
+    <div class="backdrop" v-show="showBackdrop" @click="hideBackdrop"></div>
   </transition>
   </div>
 </template>
@@ -63,7 +63,6 @@
 import cartcontrol from 'components/cartcontrol/cartcontrol'
 import backdrop from 'components/backdrop/backdrop'
 import BScroll from 'better-scroll'
-
 
 export default {
   props: {
@@ -94,17 +93,20 @@ export default {
         show: false
       }],
       dropBalls: [],
-      listShow: false,
-      showBackdrop: false
+      listShow: false
     }
   },
   created() {
     this.$root.eventHub.$on('cart.add', this.drop)
-    this.$nextTick(() => {
-      this._initScroll()
-    })
   },
   computed: {
+    showBackdrop() {
+      if (this.listShow && this.totalPrice) {
+        return true
+      }
+      this.listShow = false
+      return false
+    },
     totalPrice() {
       let total = 0
       this.selectFoods.forEach((food) => {
@@ -150,8 +152,16 @@ export default {
         }
       }
     },
+    setEmpty() {
+      this.selectFoods.forEach((food) => {
+        food.count = 0
+      })
+    },
+    hideBackdrop() {
+      this.listShow = false
+    },
     _initScroll() {
-      this.foolistWrapper = new BScroll(this.$refs.foodlist, {
+      this.foodlistScroll = new BScroll(this.$refs.foodlist, {
         click: true
       });
     },
@@ -160,6 +170,15 @@ export default {
         return
       }
       this.listShow = !this.listShow
+      if (this.listShow) {
+        this.$nextTick(() => {
+          if (!this.foodlistScroll) {
+            this._initScroll()
+          } else {
+            this.foodlistScroll.refresh()
+          }
+        })
+      }
     },
     beforeEnter(el) {
       let count = this.balls.length
@@ -194,15 +213,6 @@ export default {
         ball.show = false
         el.style.display = 'none'
       }
-    }
-  },
-  watch: {
-    listShow() {
-      if (this.listShow) {
-        this.showBackdrop = true
-        return
-      }
-      this.showBackdrop = false
     }
   },
   components: {
@@ -316,17 +326,16 @@ export default {
           transition all 0.4s linear
   .shopcart-list
     position absolute
-    bottom 48px
+    top 0
     left 0
-    right 0
-    max-height 282px
+    width 100%
     background white
+    transform translate3d(0,-100%,0)
     z-index -1
     &.transHeight-enter-active,&.transHeight-leave-active
       transition all 0.5s
-      /*bottom 48px*/
     &.transHeight-enter,&.transHeight-leave-active
-      bottom -280px
+      transform translate3d(0,0,0)
     .list-header
       height 40px
       line-height 40px
@@ -345,6 +354,8 @@ export default {
         color rgb(0,160,220)
         padding 0 10px
     .list-content
+      max-height 217px
+      overflow hidden
       .food
         position relative
         display flex

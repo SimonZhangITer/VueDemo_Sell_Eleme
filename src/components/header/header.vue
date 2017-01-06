@@ -34,7 +34,7 @@
       <img :src="seller.avatar" width="100%" height="100%"/>
     </div>
     <transition name="fade">
-      <div v-if="detailShow" class="detail" @click="hideDetail()">
+      <div v-if="detailShow" class="detail">
         <div class="detail-wrapper clearfix">
             <div class="detail-main">
               <h1 class="name">{{seller.name}}</h1>
@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="detail-close">
-          <i class="icon-close"></i>
+          <i class="icon-close" @click="hideDetail()"></i>
         </div>
     </transition>
 
