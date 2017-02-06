@@ -1,6 +1,6 @@
-# sell
+# 饿了么点餐系统
 
-> sell app
+> vue2.0、vuex、vue-router、axios、webpack、eslint、better-scroll
 
 ## Build Setup
 
@@ -15,4 +15,3 @@ npm run dev
 npm run build
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
