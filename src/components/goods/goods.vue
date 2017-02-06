@@ -62,15 +62,12 @@ export default {
     seller: Object
   },
   created() {
-    axios.get('/api/goods').then((res) => {
-      res = res.data;
-      if (res.errno === ERR_OK) {
-        this.goods = res.data;
-        this.$nextTick(() => {
-          this._initScroll(); // 初始化scroll
-          this._calculateHeight(); // 初始化列表高度列表
-        })
-      }
+    axios.get('static/data.json').then((res) => {
+      this.goods = res.data.goods
+      this.$nextTick(() => {
+        this._initScroll(); // 初始化scroll
+        this._calculateHeight(); // 初始化列表高度列表
+      })
     });
   },
   data() {
