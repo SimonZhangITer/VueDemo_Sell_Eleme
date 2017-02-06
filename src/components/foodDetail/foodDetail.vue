@@ -50,7 +50,7 @@ export default {
   },
   data() {
     return {
-      showDetail: true,
+      showDetail: false,
       classifyArr: [{
         name: '全部',
         count: this.food.ratings.length,
