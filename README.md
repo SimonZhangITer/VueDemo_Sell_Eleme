@@ -2,6 +2,7 @@
 
 > vue2.0、vuex、vue-router、axios、webpack、eslint、better-scroll
 
+部分细节还在开发中，感兴趣的可以加入进来
 ## Build Setup
 
 ``` bash
