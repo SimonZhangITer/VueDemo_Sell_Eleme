@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App'
-import VueRouer from 'vue-router'
+import VueRouter from 'vue-router'
 import goods from 'components/goods/goods'
 import ratings from 'components/ratings/ratings'
 import seller from 'components/seller/seller'
@@ -9,7 +9,7 @@ import fastclick from 'fastclick'
 import Vuex from 'vuex'
 
 Vue.use(vueTap)
-Vue.use(VueRouer)
+Vue.use(VueRouter)
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -24,7 +24,7 @@ const store = new Vuex.Store({
     }
   }
 })
-const router = new VueRouer({
+const router = new VueRouter({
   routes: [{
     path: '/goods',
     component: goods
