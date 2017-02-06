@@ -41,7 +41,7 @@
       </ul>
     </div>
     <shopCart :deliveryPrice="seller.deliveryPrice" :minPrice = "seller.minPrice" :selectFoods="selectFoods"></shopCart>
-
+    <foodDetail :food="goods[0].foods[0]" v-if="goods.length"></foodDetail>
   </div>
 
 </template>
@@ -51,6 +51,7 @@ import iconMap from 'components/iconMap/iconMap'
 import BScroll from 'better-scroll'
 import shopCart from 'components/shopCart/shopCart'
 import cartcontrol from 'components/cartcontrol/cartcontrol'
+import foodDetail from 'components/foodDetail/foodDetail'
 import axios from 'axios'
 import Vue from 'vue'
 
@@ -136,7 +137,8 @@ export default {
   components: {
     iconMap,
     shopCart,
-    cartcontrol
+    cartcontrol,
+    foodDetail
   }
 }
 

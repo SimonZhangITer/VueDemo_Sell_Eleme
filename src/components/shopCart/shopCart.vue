@@ -223,7 +223,7 @@ export default {
 
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .shopCart
   position fixed
   left 0
