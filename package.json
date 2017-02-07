@@ -13,6 +13,7 @@
     "axios": "^0.15.3",
     "babel-runtime": "^6.9.0",
     "better-scroll": "^0.1.10",
+    "eslint-config-standard": "^6.2.1",
     "fastclick": "^1.0.6",
     "iscroll": "^5.2.0",
     "moment": "^2.17.1",
@@ -22,7 +23,8 @@
     "vue-resource": "^1.0.3",
     "vue-router": "^2.1.1",
     "vue-scroll": "^2.0.1",
-    "vuex": "^2.1.1"
+    "vuex": "^2.1.1",
+    "webpack": "^1.14.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
