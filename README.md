@@ -6,9 +6,10 @@
 
 ## 项目截图
 
-<img src="https://static.oschina.net/uploads/space/2017/0207/110250_3uWi_2493500.jpeg" width="40%" style="padding-left:30%">
+<div align=center><img src="https://static.oschina.net/uploads/space/2017/0207/110250_3uWi_2493500.jpeg" width="40%"></div>
 
-<img src="https://static.oschina.net/uploads/space/2017/0207/110759_xva1_2493500.jpeg" width="40%" style="padding-left:30%">
+<div align=center><img src="https://static.oschina.net/uploads/space/2017/0207/110759_xva1_2493500.jpeg" width="40%"></div>
+
 
 ## 安装步骤
 
