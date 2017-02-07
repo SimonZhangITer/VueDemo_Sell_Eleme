@@ -50,11 +50,8 @@ export default {
     }
   },
   created() {
-    axios.get('/api/seller').then((res) => {
-      res = res.data
-      if (res.errno === ERR_OK) {
-        this.seller = res.data
-      }
+    axios.get('static/data.json').then((res) => {
+      this.seller = res.data.seller
     })
   },
   components: {

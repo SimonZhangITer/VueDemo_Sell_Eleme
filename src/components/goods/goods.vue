@@ -16,7 +16,7 @@
         <li v-for="item in goods" class="food-list food-list-hook">
           <h1>{{item.name}}</h1>
           <ul>
-            <li v-for="food in item.foods" class="food-item" >
+            <li v-for="food in item.foods" class="food-item" @click="goDetail(food)">
               <div class="icon">
                 <img width="57" height="57" :src="food.icon"/>
               </div>
@@ -41,7 +41,7 @@
       </ul>
     </div>
     <shopCart :deliveryPrice="seller.deliveryPrice" :minPrice = "seller.minPrice" :selectFoods="selectFoods"></shopCart>
-    <foodDetail :food="goods[0].foods[0]" v-if="goods.length"></foodDetail>
+    <foodDetail :food="selectedFood" v-if="selectedFood" ref="myFood"></foodDetail>
   </div>
 
 </template>
@@ -62,22 +62,20 @@ export default {
     seller: Object
   },
   created() {
-    axios.get('/api/goods').then((res) => {
-      res = res.data;
-      if (res.errno === ERR_OK) {
-        this.goods = res.data;
-        this.$nextTick(() => {
-          this._initScroll(); // 初始化scroll
-          this._calculateHeight(); // 初始化列表高度列表
-        })
-      }
+    axios.get('static/data.json').then((res) => {
+      this.goods = res.data.goods
+      this.$nextTick(() => {
+        this._initScroll(); // 初始化scroll
+        this._calculateHeight(); // 初始化列表高度列表
+      })
     });
   },
   data() {
     return {
       goods: [],
       listHeight: [],
-      foodsScrollY: 0
+      foodsScrollY: 0,
+      selectedFood: ''
     }
   },
   computed: {
@@ -132,6 +130,12 @@ export default {
         return
       }
       this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
+    },
+    goDetail(food) {
+      this.selectedFood = food
+      this.$nextTick(() => {
+        this.$refs.myFood.showToggle()
+      })
     }
   },
   components: {
@@ -247,5 +251,6 @@ export default {
             position: absolute
             right: 0
             bottom 12px
+            z-index 20
 
 </style>

@@ -1,50 +1,79 @@
 <template lang="html">
-<div class="foodDetail" v-show="showDetail">
-  <!-- <img :src="food.image" height="425" width="100%"> -->
-  <div class="info">
-    <div class="title">{{food.name}}</div>
-    <div class="desc">
-      <span>月售{{food.sellCount}}</span>
-      <span>好评率{{food.rating}}%</span>
+  <transition name="move">
+    <div class="detailWrapper" ref="detailWrapper" v-show="showDetail">
+      <div class="foodDetail">
+        <div class="back" @click="showToggle()">
+          <i class="icon-arrow_lift"></i>
+        </div>
+        <img :src="food.image" height="425" width="100%">
+        <div class="info">
+          <div class="title">{{food.name}}</div>
+          <div class="desc">
+            <span>月售{{food.sellCount}}</span>
+            <span>好评率{{food.rating}}%</span>
+          </div>
+          <div class="price">
+            <span class="unit">￥</span>{{food.price}}
+            <span class="oldPrice" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+          </div>
+          <div class="shopCart">
+            <transition name="fade">
+              <div class="text" @click="addCart($event)" v-show="!food.count">加入购物车</div>
+            </transition>
+          </div>
+          <cartcontrol :food="food"></cartcontrol>
+        </div>
+        <div class="divider"></div>
+        <div class="desc">
+          <div class="title">商品介绍</div>
+          <div class="content">{{food.info}}</div>
+        </div>
+        <div class="divider"></div>
+        <div class="evaluation">
+          <div class="title">
+            商品评价
+          </div>
+          <div class="classify">
+            <span v-for="(item,index) in classifyArr" class="item" :class="{'active':item.active,'bad':index==2,'badActive':item.active&&index==2}" @click="filterEvel(item)">
+              {{item.name}}<span class="count">{{item.count}}</span>
+            </span>
+          </div>
+          <div class="switch" @click="evelflag=!evelflag">
+            <span class="icon-check_circle" :class="{'on':evelflag}"></span>
+            <span class="text">只看有内容的评价</span>
+          </div>
+          <div class="evel-list">
+            <ul>
+              <li class="evel" v-for="evel in evelArr">
+                <div class="userInfo">
+                  <div class="time">{{evel.rateTime | time}}</div>
+                  <div class="user">
+                    <span>{{evel.username}}</span>
+                    <span class="avatar"><img :src="evel.avatar" width="12" height="12"></span>
+                  </div>
+                </div>
+                <div class="content">
+                  <span class="icon" :class="evel.rateType?'icon-thumb_down':'icon-thumb_up'"></span>
+                  <span class="text">{{evel.text}}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="price">
-      <span class="unit">￥</span>{{food.price}}
-      <span class="oldPrice" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
-    </div>
-    <div class="shopCart">
-      <div class="text">加入购物车</div>
-    </div>
-  </div>
-  <div class="divider"></div>
-  <div class="desc">
-    <div class="title">商品介绍</div>
-    <div class="content">{{food.info}}</div>
-  </div>
-  <div class="divider"></div>
-  <div class="evaluation">
-    <div class="title">
-      商品评价
-    </div>
-    <div class="classify">
-      <span v-for="(item,index) in classifyArr" class="item" :class="{'active':item.active,'bad':index==2,'badActive':item.active&&index==2}" @click="filterEvel(item)">
-        {{item.name}}<span class="count">{{item.count}}</span>
-      </span>
-    </div>
-    <div class="switch" @click="evelflag=!evelflag">
-      <span class="icon-check_circle" :class="{'on':evelflag}"></span>
-      <span class="text">只看有内容的评价</span>
-    </div>
-    <div class="evel-list">
-      <ul>
-        <li class="evel"></li>
-      </ul>
-    </div>
-  </div>
-</div>
+  </transition>
 </template>
 
 <script>
+import '../../filter/time.js'
+import BScroll from 'better-scroll'
+import cartcontrol from 'components/cartcontrol/cartcontrol'
+
 export default {
+  components: {
+    cartcontrol
+  },
   props: {
     food: Object
   },
@@ -67,8 +96,45 @@ export default {
       evelflag: true
     }
   },
-  created() {},
+  computed: {
+    evelArr() {
+      let selectIndex = 0
+      this.classifyArr.forEach((data, index) => {
+        if (data.active) {
+          selectIndex = index
+        }
+      })
+      if (this.detailWrapper) {
+        this.$nextTick(() => {
+          this.detailWrapper.refresh()
+        })
+      }
+      return selectIndex ? this.food.ratings.filter((data) => this.evelflag ? data.rateType === selectIndex - 1 && data.text : data.rateType === selectIndex - 1) : this.food.ratings.filter((data) => this.evelflag ? data.text : true)
+    }
+  },
   methods: {
+    showToggle() {
+      this.showDetail = !this.showDetail
+      if (this.showDetail) {
+        this.$nextTick(() => {
+          this._initScroll()
+        })
+      }
+    },
+    _initScroll() {
+      if (!this.detailWrapper) {
+        this.detailWrapper = new BScroll(this.$refs.detailWrapper, {
+          click: true
+        });
+      }
+    },
+    addCart(event) {
+      if (!event._constructed) {
+        return
+      }
+      this.$set(this.food, 'count', 1)
+      this.$root.eventHub.$emit('cart.add', event.target)
+    },
     filterEvel(item) {
       this.classifyArr.forEach((data) => {
         data.active = false
@@ -81,14 +147,28 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.foodDetail
+.detailWrapper
   position fixed
   left 0
-  right 0
   top 0
   bottom 48px
   width 100%
   background white
+  transition all 0.4s ease
+  &.move-enter-avtive,&.move-leave-active{
+    transform translate3d(0,0,0)
+  }
+  &.move-enter,&.move-leave-active{
+    transform translate3d(100%,0,0)
+  }
+.foodDetail
+  .back
+    position absolute
+    color white
+    top 12px
+    left 6px
+    font-size 20px
+    padding 10px
   .divider
     height 16px
     width 100%
@@ -136,6 +216,7 @@ export default {
       bottom 18px
       height 24px
       text-align center
+      z-index 2
       .text
         box-sizing border-box
         height 100%
@@ -145,6 +226,16 @@ export default {
         padding 0 12px
         border-radius 12px
         background rgb(0,160,220)
+        &.fade-enter-active,&.fade-leave-active{
+          transition opacity .5s
+        }
+        &.fade-enter,&.fade-leave-active{
+          opacity 0
+        }
+    .cartcontrol
+      position absolute
+      right 12px
+      bottom 12px
   .desc
     padding 18px
     .title
@@ -189,8 +280,6 @@ export default {
         &.badActive
           background #4d555d
     .switch
-      display table-cell
-      position absolute
       font-size 12px
       width 100%
       padding 12px 0 12px 18px
@@ -201,4 +290,38 @@ export default {
         vertical-align middle
         &.on
           color #00c850
+    .evel-list
+      margin 0 18px
+      .evel
+        padding 16px 0
+        border-bottom 1px solid rgba(7,17,27,0.1)
+        .userInfo
+          display flex
+          color rgb(147,153,159)
+          font-size 10px
+          line-height 12px
+          .time
+            flex 1
+          .user
+            flex 1
+            text-align right
+            .avatar
+              img
+                padding-left 6px
+                border-radius 50%
+        .content
+          padding-top 6px
+          .icon
+            font-size 12px
+            line-height 24px
+            &.icon-thumb_up
+              color rgb(0,160,220)
+            &.icon-thumb_down
+              color rgb(147,153,159)
+          .text
+            font-size 12px
+            color rgb(7,17,27)
+            line-height 16px
+            padding-left 4px
+
 </style>
