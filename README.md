@@ -6,7 +6,7 @@
 
 ## 演示
 
-<div align=center><a href="http://vuejssellapp.t.imooc.io/">在线演示</a></div>
+<div align=center><a href="http://vuejssellapp.t.imooc.io/" target=_blank>在线演示戳我</a></div>
 
 <div align=center>
 <img src="https://static.oschina.net/uploads/space/2017/0207/180535_4FSI_2493500.png" width="20%">
