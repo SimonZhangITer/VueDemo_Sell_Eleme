@@ -122,11 +122,9 @@ export default {
       }
     },
     _initScroll() {
-      if (!this.detailWrapper) {
-        this.detailWrapper = new BScroll(this.$refs.detailWrapper, {
-          click: true
-        });
-      }
+      this.detailWrapper = new BScroll(this.$refs.detailWrapper, {
+        click: true
+      });
     },
     addCart(event) {
       if (!event._constructed) {
