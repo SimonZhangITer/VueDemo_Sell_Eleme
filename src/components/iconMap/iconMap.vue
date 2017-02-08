@@ -14,7 +14,7 @@ export default {
 
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 @import '../../common/stylus/mixin'
   .iconMap
     display inline-block
@@ -23,13 +23,13 @@ export default {
     width 12px
     height 12px
     &.decrease
-      bg-image('decrease_3')
+      bg-image('decrease_4')
     &.discount
-      bg-image('discount_3')
+      bg-image('discount_4')
     &.guarantee
-      bg-image('guarantee_3')
+      bg-image('guarantee_4')
     &.invoice
-      bg-image('invoice_3')
+      bg-image('invoice_4')
     &.special
-      bg-image('special_3')
+      bg-image('special_4')
 </style>

@@ -50,4 +50,4 @@ new Vue({
   }
 }).$mount('#app')
 
-router.push('goods')
+router.push('seller')
