@@ -166,12 +166,6 @@ export default {
     left 6px
     font-size 20px
     padding 10px
-  .divider
-    height 16px
-    width 100%
-    background #f3f5f7
-    border-top 1px solid rgba(7,17,27,0.1)
-    border-bottom 1px solid rgba(7,17,27,0.1)
   .info
     position relative
     box-sizing border-box
