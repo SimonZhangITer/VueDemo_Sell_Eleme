@@ -12,6 +12,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   vertical-align: baseline;
 }
 
+.divider {
+  height: 16px;
+  width: 100%;
+  background: #f3f5f7;
+  border-top: 1px solid rgba(7, 17, 27, 0.1);
+  border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+}
+
 
 /* HTML5 display-role reset for older browsers */
 
