@@ -103,7 +103,7 @@
           color rgb(7,17,27)
           line-height 16px
     .seller-imgs
-      padding 18px
+      margin 18px
       white-space nowrap
       overflow hidden
       h1
@@ -112,6 +112,21 @@
         margin-bottom 12px
       img
         margin-right 6px
+    .seller-info
+      h1
+        margin 0 18px
+        padding 18px 0 12px 0
+        border-bottom 1px solid rgba(7,17,27,0.1)
+      .info-list
+        .info
+          font-size 12px
+          font-weight 200
+          color rgb(7,17,27)
+          line-height 16px
+          padding 16px 12px
+          border-bottom 1px solid rgba(7,17,27,0.1)
+          &:last-child
+            border none
 </style>
 
 <template lang="html">
@@ -172,10 +187,17 @@
       <div class="seller-imgs">
         <h1>商家实景</h1>
         <div class="img-wrapper" ref="picsWrapper">
-          <div >
+          <div ref="picList">
             <img v-for="pic in seller.pics" :src="pic" width="120" height="90">
           </div>
         </div>
+      </div>
+      <div class="divider"></div>
+      <div class="seller-info">
+        <h1>商家信息</h1>
+        <ul class="info-list">
+          <li class="info" v-for="info in seller.infos">{{info}}</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -209,10 +231,20 @@ export default {
           this.sellerScroll = new BScroll(this.$refs.sellerWrapper, {
             click: true
           })
-          this.picsScroll = new BScroll(this.$refs.picsWrapper, {
-            scrollY: false
-          })
+          this._initPicScroll()
         })
+      })
+    },
+    _initPicScroll() {
+      if (this.picsScroll) {
+        return
+      }
+      const PIC_WIDTH = 120
+      const MARGIN = 6
+      let picLen = this.seller.pics.length
+      this.$refs.picList.style.width = PIC_WIDTH * picLen + MARGIN * (picLen - 1) + 'px'
+      this.picsScroll = new BScroll(this.$refs.picsWrapper, {
+        scrollX: true
       })
     }
   }
