@@ -4,6 +4,11 @@
 
 部分细节还在开发中，感兴趣的可以加入进来
 
+在我的博客中写了一些关于此项目遇到的一些坑和建议：
+
+[https://my.oschina.net/keysITer/blog/834287](https://my.oschina.net/keysITer/blog/834287)
+
+
 ## 演示
 
 <div align=center><a href="http://vuejssellapp.t.imooc.io/" target=_blank>在线演示戳我</a></div>
