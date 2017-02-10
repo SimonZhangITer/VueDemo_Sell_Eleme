@@ -2,7 +2,6 @@
 
 > vue2.0、vuex、vue-router、axios、webpack、eslint、better-scroll
 
-部分细节还在开发中，感兴趣的可以加入进来
 
 在我的博客中写了一些关于此项目遇到的一些坑和建议：
 
@@ -37,4 +36,3 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-
