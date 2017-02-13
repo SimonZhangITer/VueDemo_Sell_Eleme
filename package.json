@@ -24,6 +24,7 @@
     "vue-router": "^2.1.1",
     "vue-scroll": "^2.0.1",
     "vuex": "^2.1.1",
+    "watchpack": "^1.2.0",
     "webpack": "^1.14.0"
   },
   "devDependencies": {
