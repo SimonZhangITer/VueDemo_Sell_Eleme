@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     addCart(event) {
-      this.count++;
+      console.log(event.target);
       if (!event._constructed) {
         return
       }
@@ -33,8 +33,6 @@ export default {
         Vue.set(this.food, 'count', 0)
       }
       this.food.count++;
-      // 存储当前点击的元素，在购物车中会用到
-      this.$store.addCartEl = event.target
       this.$root.eventHub.$emit('cart.add', event.target)
     },
     decreaseCart() {

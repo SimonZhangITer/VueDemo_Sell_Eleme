@@ -122,9 +122,13 @@ export default {
       }
     },
     _initScroll() {
-      this.detailWrapper = new BScroll(this.$refs.detailWrapper, {
-        click: true
-      });
+      if (!this.detailWrapper) {
+        this.detailWrapper = new BScroll(this.$refs.detailWrapper, {
+          click: true
+        });
+      } else {
+        this.detailWrapper.refresh()
+      }
     },
     addCart(event) {
       if (!event._constructed) {
@@ -141,6 +145,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style lang="stylus" scoped>
@@ -218,7 +223,7 @@ export default {
         border-radius 12px
         background rgb(0,160,220)
         &.fade-enter-active,&.fade-leave-active{
-          transition opacity .5s
+          transition opacity .2s
         }
         &.fade-enter,&.fade-leave-active{
           opacity 0
