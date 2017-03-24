@@ -7,7 +7,7 @@
 
 ## 演示
 
-<a href="https://simonzhangiter.github.io/VueDemo_Sell_Eleme" target=_blank>在线演示戳我</a>（请使用chrome开发者手机演示模式预览）
+<a href="http://vuejssellapp.t.imooc.io/" target=_blank>在线演示戳我</a>（请使用chrome开发者手机演示模式预览）
 
 ### 移动端演示
 扫二维码在手机上查看效果更好
