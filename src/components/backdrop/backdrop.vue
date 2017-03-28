@@ -13,7 +13,7 @@ export default {
 
 </script>
 
-<style lang="stylus">
+<style lang="stylus" rel="stylesheet/stylus">
 .backdrop
   position fixed
   top 0

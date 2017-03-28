@@ -59,7 +59,7 @@
   </div>
 </template>
 
-<script>
+<script  type="text/ecmascript-6">
 import cartcontrol from 'components/cartcontrol/cartcontrol'
 import backdrop from 'components/backdrop/backdrop'
 import BScroll from 'better-scroll'
@@ -223,7 +223,7 @@ export default {
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus" scoped>
 .shopCart
   position fixed
   left 0
