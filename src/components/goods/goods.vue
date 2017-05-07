@@ -46,7 +46,7 @@
 
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 import iconMap from 'components/iconMap/iconMap'
 import BScroll from 'better-scroll'
 import shopCart from 'components/shopCart/shopCart'
@@ -148,7 +148,7 @@ export default {
 
 </script>
 
-<style lang="stylus">
+<style lang="stylus" rel="stylesheet/stylus">
 @import '../../common/stylus/mixin'
   .goods
     display flex

@@ -2,7 +2,7 @@
   <span class="iconMap" :class="iconClassMap[iconType]"></span>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 export default {
   props: {
     iconType: Number
@@ -14,7 +14,7 @@ export default {
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus" scoped>
 @import '../../common/stylus/mixin'
   .iconMap
     display inline-block

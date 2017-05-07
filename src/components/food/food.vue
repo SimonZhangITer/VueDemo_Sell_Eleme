@@ -13,7 +13,7 @@ export default {
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus" scoped>
 .food
   position fixed
   left 0

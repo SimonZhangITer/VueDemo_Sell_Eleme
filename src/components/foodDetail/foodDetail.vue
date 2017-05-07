@@ -65,7 +65,7 @@
   </transition>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 import '../../filter/time.js'
 import BScroll from 'better-scroll'
 import cartcontrol from 'components/cartcontrol/cartcontrol'
@@ -148,7 +148,7 @@ export default {
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus" scoped>
 .detailWrapper
   position fixed
   left 0

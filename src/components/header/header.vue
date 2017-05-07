@@ -69,7 +69,7 @@
 
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 import star from 'components/star/star'
 
 export default {

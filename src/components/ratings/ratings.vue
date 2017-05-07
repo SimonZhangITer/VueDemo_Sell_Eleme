@@ -1,4 +1,4 @@
-<style lang="stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus" scoped>
 .ratingsWrapper
   position: absolute
   top: 174px
@@ -208,7 +208,7 @@
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 import axios from 'axios'
 import star from 'components/star/star'
 import BScroll from 'better-scroll'
