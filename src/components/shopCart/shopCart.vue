@@ -198,7 +198,7 @@ export default {
       }
     },
     enter(el) {
-      el.offsetHeight
+      el.offsetHeight // 触发浏览器重绘，offsetWidth、offsetTop等方法都可以触发
       this.$nextTick(() => {
         el.style.webkitTransform = 'translate3d(0,0,0)'
         el.style.transform = 'translate3d(0,0,0)'
