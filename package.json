@@ -2,7 +2,7 @@
   "name": "sell",
   "version": "1.0.0",
   "description": "sell app",
-  "author": "<zhangr@ethicall.cn>",
+  "author": "<simonzhangr@foxmail.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
