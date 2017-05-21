@@ -1,4 +1,4 @@
-# 饿了么点餐系统
+# 饿了么点餐系统 
 
 > vue2.0、vuex、vue-router、axios、webpack、eslint、better-scroll
 
