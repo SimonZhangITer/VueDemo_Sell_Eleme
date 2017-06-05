@@ -5,7 +5,7 @@
 > vue2.0、vuex、vue-router、axios、webpack、eslint、better-scroll
 
 
-## 演示
+## 演示 
 
 <a href="https://simonzhangiter.github.io/VueDemo_Sell_Eleme" target=_blank>在线演示戳我</a>（请使用chrome开发者手机演示模式预览）
 
