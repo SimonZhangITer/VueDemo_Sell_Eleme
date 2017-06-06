@@ -1,6 +1,6 @@
 > 一直对vue很感兴趣，最近使用vue2.0开发了高仿饿了么点餐系统来练练手，不得不说vue真是一个很不错的框架，但是也遇到过一些坑，在这里和大家分享一下
 
-# 饿了么点餐系统
+# 饿了么点餐系统 
 
 > vue2.0、vuex、vue-router、axios、webpack、eslint、better-scroll
 
