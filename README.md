@@ -170,7 +170,7 @@ npm run build
 
 - WeChat
 
-<img src="https://p0.meituan.net/dpgroup/749d8a79cd0a9bbc4e25b2f474a398d91256770.png" with="25%">
+<img src="https://p0.meituan.net/dpgroup/749d8a79cd0a9bbc4e25b2f474a398d91256770.png?" width="25%">
 
 ## 声明
 
