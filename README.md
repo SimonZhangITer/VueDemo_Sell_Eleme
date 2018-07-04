@@ -168,6 +168,10 @@ npm run build
 
 - QQ群：149683643
 
+- WeChat
+
+<img src="https://p0.meituan.net/dpgroup/749d8a79cd0a9bbc4e25b2f474a398d91256770.png" with="40%">
+
 ## 声明
 
 本项目的设计资源来自<a href="https://coding.imooc.com/class/74.html" target=_blank>慕课网</a>，但慕课网采用的是vue1.0开发，本项目采用vue2.0重构，并且引入vuex、vue-router等插件，是我个人的练手项目，如有冒犯，还请海涵。
